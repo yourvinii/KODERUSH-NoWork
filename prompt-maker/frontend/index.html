@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NoWork</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  <link rel="stylesheet" href="pages.css" />
+  <style>
+    @font-face { font-family: "Manrope"; src: url("fonts/Manrope.ttf") format("truetype"); font-weight: 200 800; font-display: swap; }
+    :root {
+      --bg: #070912; --glass: rgba(255,255,255,.055); --glass-2: rgba(255,255,255,.09); --line: rgba(255,255,255,.12);
+      --sky: #57c6ff; --accent: #075985; --text: #eef0ff; --muted: #9aa0c0; --cyan: #22d3ee; --violet: #8b5cf6; --pink: #f472b6; --ok: #34d399; --err: #fb7185;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; color: var(--text); background: var(--bg);
+      font: 16px/1.55 "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Devanagari", sans-serif;
+      background-image: radial-gradient(60rem 40rem at 15% -10%, rgba(139,92,246,.28), transparent 60%),
+                        radial-gradient(50rem 36rem at 95% 10%, rgba(34,211,238,.18), transparent 60%);
+      background-attachment: fixed;
+    }
+    main { max-width: 880px; margin: 0 auto; padding: 28px 16px 72px; }
+    header { text-align: center; margin-bottom: 18px; }
+    h1 { font-size: clamp(1.6rem, 5vw, 2.3rem); margin: 0 0 6px; letter-spacing: -.02em;
+         background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    header p { margin: 0; color: var(--muted); }
+
+    .glass { background: var(--glass); border: 1px solid var(--line); border-radius: 22px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    /* Hero: the Rive artboard is the full-screen background; its colour (#57c6ff) fills the hero so there is no seam. */
+    .hero { position: relative; overflow: hidden; background: var(--sky); color: #0b1b3a; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: 96px 16px 16px; } /* top padding clears the fixed navbar */
+    .hero > :not(canvas) { position: relative; z-index: 1; }
+    /* Canvas is centred on the avatar; the bot is ~36% of the artboard, so size it to make the bot match --size. */
+    #wave { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    #riveCanvas { transition: filter .9s ease; position: absolute; left: 50%; top: 50%; width: calc(var(--size) / .36); height: calc(var(--size) / .36); transform: translate(-50%, -50%); pointer-events: none; z-index: 0; clip-path: inset(32% round 8%); }
+    /* The oversized canvas would otherwise paint over the text, so lift text above it. */
+    .hero > .hero-top { z-index: 2; }
+    .hero-mid #status, .hero-mid .voice { position: relative; z-index: 2; }
+    .hero-mid #status { margin-top: 20px; }
+    .lock { position: relative; z-index: 2; display: flex; gap: 8px; margin-top: 12px; }
+    .lock button { font: inherit; font-size: .85rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(11,27,58,.25); background: rgba(255,255,255,.75); color: #0b1b3a; cursor: pointer; }
+    .lock button:disabled { opacity: .6; cursor: wait; }
+    .lock button.on { background: #0b1b3a; color: #fff; }
+    .hero-top { text-align: center; }
+    .hero header h1 { margin: 0 0 6px; font-size: clamp(1.7rem, 4.2vw, 2.8rem); font-weight: 800; letter-spacing: -.03em; color: #0b1b3a; }
+    /* "Build" gets a slowly flowing gradient. First and last colour match and the image is twice the word's width, so the loop has no seam. Deep tones keep it readable on every theme. */
+    .grad { background: linear-gradient(90deg, #0369a1, #6d28d9, #be185d, #c2410c, #0369a1); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: gradflow 5s linear infinite; }
+    @keyframes gradflow { from { background-position: 0% 0; } to { background-position: 200% 0; } }
+    .hero header p { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 600; color: #1e3a5f; }
+    #agentName { display: inline-block; font-weight: 800; color: #0b1b3a; }
+    #agentName.flip { animation: nameIn .45s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes nameIn { from { opacity: 0; transform: translateY(8px); } }
+    .hero-mid { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 12px 0; }
+    #avatar { --avatar-radius: 22%; /* the Rive icon is a rounded square, so rings and glow must match it */ --size: clamp(200px, 36vh, 420px); position: relative; width: var(--size); height: var(--size); }
+    /* Transparent click target over the bot; the animation itself is the hero canvas behind it. */
+    #micBtn { position: relative; z-index: 1; width: 100%; height: 100%; border-radius: var(--avatar-radius); border: 0; padding: 0; cursor: pointer; color: #fff; font-size: 3rem; background: transparent; transition: transform .2s, box-shadow .3s; }
+    #micBtn:hover:not(:disabled) { transform: scale(1.04); }
+    #micBtn:focus-visible { outline: 3px solid #0b3b8f; outline-offset: 6px; }
+    #micBtn:disabled { cursor: wait; }
+    #micBtn .fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: var(--avatar-radius); background: linear-gradient(135deg, var(--cyan), var(--violet)); }
+    #micBtn.rive-ok .fallback { display: none; }
+    #avatar.swap { animation: swap .7s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes swap { 0% { transform: scale(1); } 35% { transform: scale(.9); } 100% { transform: scale(1); } }
+    #avatar::before, #avatar::after { content: ""; position: absolute; inset: 0; border-radius: var(--avatar-radius); border: 3px solid #fff; opacity: 0; pointer-events: none; }
+    #avatar[data-state="listening"] #micBtn { box-shadow: 0 0 0 4px rgba(255,255,255,.75), 0 0 60px rgba(255,255,255,.9); }
+    #avatar[data-state="listening"]::before { animation: ring 2.4s ease-out infinite; }
+    #avatar[data-state="speaking"] #micBtn { box-shadow: 0 0 0 4px rgba(255,255,255,.85), 0 0 64px var(--accent, #38bdf8); }
+    /* While the agent talks: the same ring as listening, in the theme colour, appearing and fading out, twice per cycle. */
+    #avatar[data-state="speaking"]::before, #avatar[data-state="speaking"]::after { border-color: var(--accent, #38bdf8); animation: ring 1.6s ease-out infinite; }
+    #avatar[data-state="speaking"]::after { animation-delay: .8s; }
+    #avatar[data-state="thinking"] #micBtn { animation: spin-glow 1.4s linear infinite; }
+    #avatar[data-state="connecting"] #micBtn { opacity: .7; animation: breathe 1.4s ease-in-out infinite; }
+    @keyframes ring { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
+    @keyframes breathe { 50% { transform: scale(1.05); } }
+    @keyframes spin-glow { 0%,100% { box-shadow: 0 0 0 4px rgba(139,92,246,.5), 0 0 30px rgba(139,92,246,.4); } 50% { box-shadow: 0 0 0 4px rgba(139,92,246,.9), 0 0 80px rgba(139,92,246,.95); } }
+    @media (prefers-reduced-motion: reduce) { #avatar::before, #avatar::after, #micBtn, #agentName, .grad, .dots i { animation: none !important; transition: none !important; } }
+
+    /* Voice picker: light pill with dark text, readable on the pale hero and in the native popup (which is always light). */
+    .voice { display: inline-flex; align-items: center; gap: 10px; color: #0b1b3a; font-size: .9rem; font-weight: 600; }
+    .voice select { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; } /* kept for state; the custom picker below is what people see */
+    .vp { position: relative; }
+    .vp-btn {
+      display: inline-flex; align-items: center; gap: 12px; min-height: 42px; padding: 9px 16px 9px 20px; cursor: pointer; font: inherit; font-weight: 700; color: #0b1b3a;
+      background: rgba(255,255,255,.88); border: 1px solid rgba(11,27,58,.18); border-radius: 999px; box-shadow: 0 2px 10px rgba(11,27,58,.12); transition: box-shadow .2s, border-color .2s;
+    }
+    .vp-btn:hover:not(:disabled) { border-color: rgba(11,27,58,.45); box-shadow: 0 4px 16px rgba(11,27,58,.2); }
+    .vp-btn:focus-visible { outline: 3px solid #0b3b8f; outline-offset: 2px; }
+    .vp-btn:disabled { opacity: .55; cursor: not-allowed; }
+    .vp-btn svg, .vp-item svg { flex: none; }
+    .vp-btn svg { transition: transform .2s; }
+    .vp-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .vp-list {
+      position: absolute; left: 50%; transform: translateX(-50%); min-width: 230px; margin: 0; padding: 6px; list-style: none; z-index: 10;
+      background: rgba(255,255,255,.97); border: 1px solid rgba(11,27,58,.12); border-radius: 18px; box-shadow: 0 18px 44px rgba(11,27,58,.28);
+      top: calc(100% + 8px); animation: pop .15s ease-out;
+    }
+    @keyframes pop { from { opacity: 0; transform: translateX(-50%) translateY(6px); } }
+    .vp-list.up { top: auto; bottom: calc(100% + 8px); }
+    .vp-list[hidden] { display: none; }
+    .vp-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; cursor: pointer; color: #0b1b3a; }
+    .vp-item b { font-weight: 700; }
+    .vp-item small { margin-left: auto; padding: 2px 9px; border-radius: 999px; font-size: .75rem; font-weight: 600; background: #e0f2fe; color: #075985; }
+    .vp-item[data-gender="Female"] small { background: #fce7f3; color: #9d174d; }
+    .vp-item:hover, .vp-item.active { background: #eaf3ff; }
+    .vp-item .tick { width: 16px; color: #0b3b8f; visibility: hidden; }
+    .vp-item[aria-selected="true"] .tick { visibility: visible; }
+    #status { color: var(--muted); min-height: 1.6em; text-align: center; font-size: .98rem; }
+    #status.error { color: var(--err); }
+    .hero #status { color: #0b1b3a; font-weight: 500; }
+    .dots { display: inline-flex; gap: 4px; margin-left: 8px; vertical-align: middle; }
+    .dots i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: dot 1.1s ease-in-out infinite; }
+    .dots i:nth-child(2) { animation-delay: .15s; }
+    .dots i:nth-child(3) { animation-delay: .3s; }
+    @keyframes dot { 0%, 70%, 100% { transform: translateY(0); opacity: .35; } 35% { transform: translateY(-4px); opacity: 1; } }
+    .hero #status.error { color: #b91c1c; }
+
+
+
+    footer { text-align: center; color: var(--muted); font-size: .85rem; margin-top: 26px; }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Main">
+    <a class="nav-brand" href="#/agents" aria-label="NoWork home"><img src="logo.svg" alt="" /><span>NoWork</span></a>
+    <div class="nav-links">
+      <a href="#/agents" data-nav="agents">Agents<i class="live-dot" hidden></i></a>
+      <a href="#/prompt" data-nav="prompt">Prompt<i class="badge-dot" hidden></i></a>
+      <a href="#/code" data-nav="code">Code<i class="badge-dot" hidden></i></a>
+    </div>
+  </nav>
+
+  <section class="hero view" id="view-agents" data-view="agents">
+    <div id="wave" aria-hidden="true"></div>
+    <div class="hero-top">
+      <header>
+        <h1>How can I help you to <span class="grad">Build</span> today?</h1>
+        <p>Ask <span id="agentName">Charon</span>, your agent</p>
+      </header>
+    </div>
+    <div class="hero-mid">
+      <div id="avatar" data-state="idle">
+        <canvas id="riveCanvas" aria-hidden="true"></canvas>
+        <button id="micBtn" aria-label="Start talking">
+          <span class="fallback">🎤</span>
+        </button>
+      </div>
+      <div id="status" role="status" aria-live="polite">Tap the avatar to start</div>
+      <div class="lock" id="lockBox">
+        <button type="button" id="lockBtn">Lock my voice</button>
+        <button type="button" id="lockReset" hidden>Re-record</button>
+      </div>
+      <div class="voice"><span>Voice</span>
+        <select id="voiceSel">
+          <option value="Charon">Charon (Male)</option>
+          <option value="Orus">Orus (Male)</option>
+          <option value="Kore">Kore (Female)</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section class="page view" id="view-prompt" data-view="prompt" hidden></section>
+  <section class="page view" id="view-code" data-view="code" hidden></section>
+
+  <script src="https://unpkg.com/@rive-app/webgl2@2.44.1/rive.js"></script>
+  <script src="gradient-wave.js"></script>
+  <script src="voice-level.js"></script>
+  <script src="voiceprint.js"></script>
+  <script src="voicelock.js"></script>
+  <script src="geminilive.js"></script>
+  <script src="mediaUtils.js"></script>
+  <script src="tools.js"></script>
+  <script src="app.js"></script>
+  <script src="prompt-page.js"></script>
+  <script src="code-page.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

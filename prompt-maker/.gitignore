@@ -5,10 +5,5 @@ __pycache__/
 *.log
 # supabase
 
-fonts 
-components
-models
-index.html
-pages.css
-script.js
+
 
