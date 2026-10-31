@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 300" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1000" height="300" rx="24" fill="#0f1226"/>
+  <path id="r" d="M70 220 C170 220 170 80 270 80 S370 220 470 220 S570 80 670 80 S770 220 870 220 S930 150 940 150" fill="none" stroke="#2c3262" stroke-width="22" stroke-linecap="round"/>
+  <path d="M70 220 C170 220 170 80 270 80 S370 220 470 220 S570 80 670 80 S770 220 870 220 S930 150 940 150" fill="none" stroke="#8f7bff" stroke-width="3" stroke-dasharray="3 14" stroke-linecap="round"><animate attributeName="stroke-dashoffset" values="0;-34" dur="1.2s" repeatCount="indefinite"/></path>
+  <g font-size="13" fill="#ffffff" text-anchor="middle" font-weight="700">
+    <g transform="translate(70 220)"><circle r="16" fill="#57c6ff"/><text y="5">1</text></g>
+    <g transform="translate(270 80)"><circle r="16" fill="#7fa0ff"/><text y="5">2</text></g>
+    <g transform="translate(470 220)"><circle r="16" fill="#a183ff"/><text y="5">3</text></g>
+    <g transform="translate(670 80)"><circle r="16" fill="#c680ff"/><text y="5">4</text></g>
+    <g transform="translate(870 220)"><circle r="16" fill="#ff7ac8"/><text y="5">5</text></g>
+    <g transform="translate(940 150)"><circle r="16" fill="#ffa45c"/><text y="5">6</text></g>
+  </g>
+  <g font-size="14" fill="#cfd4ff" text-anchor="middle">
+    <text x="70" y="262">Design</text><text x="270" y="50">Architecture</text><text x="470" y="262">UI / UX</text><text x="670" y="50">Frontend</text><text x="870" y="262">Backend</text><text x="940" y="118">Database</text>
+  </g>
+  <g>
+    <rect x="-14" y="-14" width="28" height="28" rx="9" fill="#ffffff"/>
+    <circle cx="-5" cy="-2" r="3" fill="#0f1226"/><circle cx="5" cy="-2" r="3" fill="#0f1226"/>
+    <animateMotion dur="9s" repeatCount="indefinite" rotate="0"><mpath xlink:href="#r" href="#r"/></animateMotion>
+  </g>
+</svg>

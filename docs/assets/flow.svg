@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 260" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1000" height="260" rx="24" fill="#0f1226"/>
+  <path d="M100 130 H900" stroke="#3b4170" stroke-width="3" stroke-dasharray="6 8" fill="none"><animate attributeName="stroke-dashoffset" values="0;-28" dur="1s" repeatCount="indefinite"/></path>
+  <g text-anchor="middle" fill="#ffffff" font-size="16" font-weight="600">
+    <g transform="translate(100 130)"><circle r="46" fill="#57c6ff"/><text y="6">Voice</text></g>
+    <g transform="translate(300 130)"><circle r="46" fill="#8f7bff"/><text y="-2">Gemini</text><text y="16">Live</text></g>
+    <g transform="translate(500 130)"><circle r="46" fill="#c06bff"/><text y="-2">RAG</text><text y="16">facts</text></g>
+    <g transform="translate(700 130)"><circle r="46" fill="#ff7ac8"/><text y="-2">6</text><text y="16">prompts</text></g>
+    <g transform="translate(900 130)"><circle r="46" fill="#ffa45c"/><text y="-2">Starter</text><text y="16">code</text></g>
+  </g>
+  <g fill="#ffffff">
+    <circle r="6"><animateMotion dur="4s" repeatCount="indefinite" path="M100 130 H900"/></circle>
+    <circle r="6" opacity=".6"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite" path="M100 130 H900"/></circle>
+  </g>
+  <g text-anchor="middle" fill="#9aa3d6" font-size="14">
+    <text x="100" y="220">you speak</text><text x="300" y="220">asks questions</text><text x="500" y="220">no wrong answers</text><text x="700" y="220">design to database</text><text x="900" y="220">HTML / CSS / JS</text>
+  </g>
+</svg>

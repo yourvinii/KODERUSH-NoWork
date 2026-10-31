@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" role="img" aria-label="NoWork - talk, get a roadmap of 6 prompts">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1020"/><stop offset=".55" stop-color="#16124a"/><stop offset="1" stop-color="#2a0f3d"/></linearGradient>
+    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#57c6ff"/><stop offset=".5" stop-color="#b48cff"/><stop offset="1" stop-color="#ff7ac8"/></linearGradient>
+    <linearGradient id="t" x1="0" x2="1"><stop offset="0" stop-color="#57c6ff"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#ff7ac8"/></linearGradient>
+    <clipPath id="c"><rect width="1000" height="320" rx="28"/></clipPath>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="1000" height="320" fill="url(#bg)"/>
+    <g fill="none" stroke="url(#g)" stroke-width="2.5" opacity=".55">
+      <path d="M0 230 C150 180 250 280 400 230 S650 180 800 230 S950 270 1000 230"><animate attributeName="d" dur="7s" repeatCount="indefinite" values="M0 230 C150 180 250 280 400 230 S650 180 800 230 S950 270 1000 230;M0 230 C150 280 250 180 400 230 S650 280 800 230 S950 190 1000 230;M0 230 C150 180 250 280 400 230 S650 180 800 230 S950 270 1000 230"/></path>
+      <path opacity=".6" d="M0 255 C150 215 300 295 450 255 S700 215 850 255 S950 285 1000 255"><animate attributeName="d" dur="9s" repeatCount="indefinite" values="M0 255 C150 215 300 295 450 255 S700 215 850 255 S950 285 1000 255;M0 255 C150 295 300 215 450 255 S700 295 850 255 S950 225 1000 255;M0 255 C150 215 300 295 450 255 S700 215 850 255 S950 285 1000 255"/></path>
+    </g>
+    <g fill="#fff">
+      <circle cx="80" cy="60" r="2"><animate attributeName="opacity" values=".2;1;.2" dur="3s" repeatCount="indefinite"/></circle>
+      <circle cx="300" cy="40" r="1.5"><animate attributeName="opacity" values="1;.2;1" dur="4s" repeatCount="indefinite"/></circle>
+      <circle cx="620" cy="55" r="2"><animate attributeName="opacity" values=".3;1;.3" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="900" cy="45" r="1.5"><animate attributeName="opacity" values="1;.2;1" dur="3.5s" repeatCount="indefinite"/></circle>
+      <circle cx="760" cy="110" r="1.5"><animate attributeName="opacity" values=".2;1;.2" dur="5s" repeatCount="indefinite"/></circle>
+    </g>
+    <g transform="translate(90 70)">
+      <animateTransform attributeName="transform" type="translate" values="90 70;90 58;90 70" dur="4s" repeatCount="indefinite"/>
+      <rect width="150" height="150" rx="36" fill="#fff"/>
+      <path transform="scale(.293)" d="M203.83 342 133.5 102H181.17L226.17 267L271.17 102.33L318.83 102L363.83 267L408.83 102H456.5L386.17 342H341.5L295 180L248.5 342Z" fill="#000" fill-opacity=".22"/>
+      <path transform="scale(.293)" d="M55.5 390V190H93.83L180.78 323.33V190H219.11V390H180.78L93.83 256.67V390Z" fill="#000" stroke="#fff" stroke-width="10" stroke-linejoin="round" paint-order="stroke"/>
+    </g>
+    <g font-family="Segoe UI, Helvetica, Arial, sans-serif">
+      <text x="290" y="150" font-size="84" font-weight="800" fill="url(#t)">NoWork</text>
+      <text x="294" y="192" font-size="24" fill="#d8dcff">Just talk. Get a 6-step prompt roadmap.</text>
+      <text x="294" y="226" font-size="17" fill="#9aa3d6">Voice-only AI agent  |  your language  |  Gemini Live API</text>
+    </g>
+    <rect x="90" y="70" width="150" height="150" rx="36" fill="none" stroke="#57c6ff" stroke-width="2">
+      <animate attributeName="opacity" values=".8;0" dur="2.4s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>

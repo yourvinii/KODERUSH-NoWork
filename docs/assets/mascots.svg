@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 900 300" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <g id="bot">
+      <ellipse cx="0" cy="118" rx="52" ry="8" fill="#000" opacity=".25"><animate attributeName="rx" values="52;40;52" dur="3s" repeatCount="indefinite"/></ellipse>
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="0 0;0 -10;0 0" dur="3s" repeatCount="indefinite"/>
+        <line x1="0" y1="-62" x2="0" y2="-38" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="0" cy="-68" r="9" fill="#ffffff"><animate attributeName="r" values="7;11;7" dur="1.2s" repeatCount="indefinite"/></circle>
+        <rect x="-62" y="-40" width="124" height="112" rx="38" fill="currentColor"/>
+        <rect x="-48" y="-26" width="96" height="64" rx="26" fill="#0b1020"/>
+        <g fill="#ffffff">
+          <rect x="-26" y="-4" width="14" height="22" rx="7"><animate attributeName="height" values="22;22;2;22;22" keyTimes="0;.9;.94;.97;1" dur="4s" repeatCount="indefinite"/><animate attributeName="y" values="-4;-4;6;-4;-4" keyTimes="0;.9;.94;.97;1" dur="4s" repeatCount="indefinite"/></rect>
+          <rect x="12" y="-4" width="14" height="22" rx="7"><animate attributeName="height" values="22;22;2;22;22" keyTimes="0;.9;.94;.97;1" dur="4s" repeatCount="indefinite"/><animate attributeName="y" values="-4;-4;6;-4;-4" keyTimes="0;.9;.94;.97;1" dur="4s" repeatCount="indefinite"/></rect>
+        </g>
+        <rect x="-62" y="-40" width="124" height="112" rx="38" fill="none" stroke="currentColor" stroke-width="3"><animate attributeName="opacity" values=".7;0" dur="2s" repeatCount="indefinite"/></rect>
+      </g>
+    </g>
+  </defs>
+  <rect width="900" height="300" rx="28" fill="#0f1226"/>
+  <g transform="translate(150 130)" color="#57c6ff"><use xlink:href="#bot" href="#bot"/></g>
+  <g transform="translate(450 130)" color="#ffa45c"><use xlink:href="#bot" href="#bot"/></g>
+  <g transform="translate(750 130)" color="#ff7ac8"><use xlink:href="#bot" href="#bot"/></g>
+  <g text-anchor="middle" font-size="22" font-weight="700">
+    <text x="150" y="275" fill="#57c6ff">Charon</text>
+    <text x="450" y="275" fill="#ffa45c">Orus</text>
+    <text x="750" y="275" fill="#ff7ac8">Kore</text>
+  </g>
+</svg>
