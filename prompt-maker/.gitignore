@@ -4,3 +4,17 @@ __pycache__/
 .pytest_cache/
 *.log
 # supabase
+
+fonts 
+components
+models
+index.html
+pages.css
+script.js
+
+voice-level.js
+voice-worker.js
+voicelock.js
+voiceprint.js
+gradient-wave.js
+geminilive.js
