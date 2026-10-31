@@ -1,0 +1,6 @@
+# Vercel installs from here (repo root). Keep in sync with prompt-maker/backend/requirements.txt.
+# Pinned: aio_asgi.py relies on aiohttp's Application._handle, which is not a public API.
+aiohttp==3.14.5
+google-genai
+python-dotenv
+python-docx

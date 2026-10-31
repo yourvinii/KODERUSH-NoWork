@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "app.py": {
+      "maxDuration": 90,
+      "excludeFiles": "{prompt-maker/backend/tests/**,prompt-maker/backend/.venv/**,prompt-maker/tests/**,docs/**,**/__pycache__/**}"
+    }
+  }
+}
